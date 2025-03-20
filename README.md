@@ -40,3 +40,17 @@ A simple web application to calculate Body Mass Index (BMI) based on user input.
 2. **Flask**: Install Flask and Flask-CORS using pip:
    ```bash
    pip install flask flask-cors
+
+
+---
+
+### License
+
+This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
+
+### Acknowledgments
+
+- [Bootstrap](https://getbootstrap.com/) for the responsive design.
+- [Flask](https://flask.palletsprojects.com/) for the backend API.
+
+Enjoy calculating your BMI! 😊
