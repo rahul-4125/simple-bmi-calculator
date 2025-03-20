@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>BMI Calculator</title>
+    <!-- Bootstrap CSS -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <div class="container mt-5">
+      <h2 class="text-center mb-4">BMI Calculator</h2>
+      <div class="row justify-content-center">
+        <div class="col-md-6">
+          <div class="card">
+            <div class="card-body">
+              <form>
+                <div class="mb-3">
+                  <label for="height" class="form-label">Height (in cm):</label>
+                  <input
+                    type="number"
+                    class="form-control"
+                    id="height"
+                    placeholder="Enter height"
+                    step="0.1"
+                  />
+                </div>
+                <div class="mb-3">
+                  <label for="weight" class="form-label">Weight (in kg):</label>
+                  <input
+                    type="number"
+                    class="form-control"
+                    id="weight"
+                    placeholder="Enter weight"
+                    step="0.1"
+                  />
+                </div>
+                <button
+                  type="button"
+                  class="btn btn-primary w-100"
+                  onclick="calculateBMI()"
+                >
+                  Calculate BMI
+                </button>
+              </form>
+            </div>
+          </div>
+          <div id="result" class="mt-4 text-center">
+            <h3>Result: <span id="bmiResult" class="text-primary"></span></h3>
+            <h3>Status: <span id="bmiStatus" class="text-success"></span></h3>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Custom JavaScript -->
+    <script>
+      function calculateBMI() {
+        const height = document.getElementById("height").value;
+        const weight = document.getElementById("weight").value;
+
+        if (height === "" || weight === "") {
+          alert("Please enter both height and weight.");
+          return;
+        }
+
+        fetch(`http://localhost:5000/bmi?height=${height}&weight=${weight}`)
+          .then((response) => response.json())
+          .then((data) => {
+            if (data.error) {
+              document.getElementById("bmiResult").innerText =
+                "Error: " + data.error;
+              document.getElementById("bmiStatus").innerText = "";
+            } else {
+              document.getElementById("bmiResult").innerText = data.bmi;
+              document.getElementById("bmiStatus").innerText = data.status;
+            }
+          })
+          .catch((error) => console.error("Error:", error));
+      }
+    </script>
+  </body>
+</html>
